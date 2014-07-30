@@ -23,7 +23,24 @@ Missing:
 Examples
 --------
 
-Custom grant type (legacy code migration)::
+Token response::
+
+    def access_token(request):
+        """Core functionality is available directly from the request.
+
+        Responses from OAuthLib are wrapped in a response object of type
+        :class:`pyramid.response.Response` so they can be returned directly
+        from views.
+        """
+        userid = request.authenticated_userid
+        if userid is not None:
+            credentials = dict(userId=userid)
+        else:
+            credentials = None
+
+        return request.create_token_response(credentials=credentials)
+
+Custom grant type::
 
     from oauthlib.oauth2 import ClientCredentialsGrant, InvalidClientError
     from pyramid.authentication import BadCSRFToken
@@ -59,24 +76,7 @@ Custom grant type (legacy code migration)::
     def includeme(config):
         config.add_grant_type(SessionGrant(), 'assertion')
 
-Token response::
-
-    def access_token(request):
-        """Core functionality is available directly from the request.
-
-        Responses from OAuthLib are wrapped in a response object of type
-        :class:`pyramid.response.Response` so they can be returned directly
-        from views.
-        """
-        userid = request.authenticated_userid
-        if userid is not None:
-            credentials = dict(userId=userid)
-        else:
-            credentials = None
-
-        return request.create_token_response(credentials=credentials)
-
-Using OAuthLib components::
+Using OAuthLib types directly::
 
     from oauthlib.oauth2 import BearerToken, RequestValidator
 
