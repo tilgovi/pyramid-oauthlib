@@ -20,6 +20,20 @@ Missing:
 - Tests
 - Documentation
 
+Examples
+--------
+
+Token response::
+
+    def access_token(request):
+        userid = request.authenticated_userid
+        if userid is not None:
+            credentials = dict(userId=userid)
+        else:
+            credentials = None
+
+        return request.create_token_response(credentials=credentials)
+
 
 .. _OAuthLib: https://github.com/idan/oauthlib
 .. _Pyramid: http://www.pylonsproject.org/
