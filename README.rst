@@ -23,6 +23,42 @@ Missing:
 Examples
 --------
 
+Custom grant type (legacy code migration)::
+
+    from oauthlib.oauth2 import ClientCredentialsGrant, InvalidClientError
+    from pyramid.authentication import BadCSRFToken
+    from pyramid.session import check_csrf_token
+
+    class SessionGrant(ClientCredentialsGrant):
+
+        """A combined authentication and authorization session assertion grant.
+
+        When the Authorization Server and the Token Service are the same server
+        this grant type uses a single assertion, the CSRF token, for client
+        authentication and an authorization grant.[1] This works particularly
+        well :class:`pyramid.authentication.SessionAuthenticationPolicy`.
+
+        [1] http://tools.ietf.org/html/draft-ietf-oauth-assertions-01#section-3
+        """
+
+        def validate_token_request(self, request):
+            try:
+                check_csrf_token(request, token='assertion')
+            except BadCSRFToken:
+                raise InvalidClientError(request=request)
+
+            # An object with the confidential client_id and client_secret.
+            request.client = LOCAL_CLIENT
+
+            if request.client is None:
+                raise InvalidClientError(request=request)
+
+            request.client_id = request.client_id or request.client.client_id
+
+
+    def includeme(config):
+        config.add_grant_type(SessionGrant(), 'assertion')
+
 Token response::
 
     def access_token(request):
