@@ -16,7 +16,7 @@ requires = [
 setup(
     name='pyramid_oauthlib',
     version='0.0',
-    description='pyramid_oauthlib',
+    description='Pyramid OAuthLib integration',
     long_description=README + '\n\n' + CHANGES,
     classifiers=[
         "Programming Language :: Python",
