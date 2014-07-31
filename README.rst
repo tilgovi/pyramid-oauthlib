@@ -53,7 +53,7 @@ Custom grant type::
         When the Authorization Server and the Token Service are the same server
         this grant type uses a single assertion, the CSRF token, for client
         authentication and an authorization grant.[1] This works particularly
-        well :class:`pyramid.authentication.SessionAuthenticationPolicy`.
+        well with :class:`pyramid.authentication.SessionAuthenticationPolicy`.
 
         [1] http://tools.ietf.org/html/draft-ietf-oauth-assertions-01#section-3
         """
