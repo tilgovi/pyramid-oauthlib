@@ -15,7 +15,7 @@ requires = [
 
 setup(
     name='pyramid_oauthlib',
-    version='0.0',
+    version='0.1',
     description='Pyramid OAuthLib integration',
     long_description=README + '\n\n' + CHANGES,
     classifiers=[
