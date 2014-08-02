@@ -23,8 +23,8 @@ Configuration::
 
         # Validator callback functions are passed Pyramid request objects so
         # you can access your request properties, database sessions, etc.
-        # The request object is extended with all the properties used in the
-        # OAuthLib docs and built in types.
+        # The request object is populated with accessors for the properties
+        # referred to in the OAuthLib docs and used by its built in types.
         validator = MyRequestValidator()
         auth_code = AuthorizationCodeGrant(request_validator=validator)
         token = BearerToken(request_validator=validator)
