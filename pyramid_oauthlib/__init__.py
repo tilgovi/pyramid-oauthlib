@@ -4,7 +4,6 @@ import logging
 
 from oauthlib import oauth2
 from oauthlib.oauth2.rfc6749.endpoints import base
-from pyramid.path import DottedNameResolver
 from pyramid.response import Response
 
 log = logging.getLogger(__name__)
@@ -89,7 +88,7 @@ class Server(
 
 
 def add_grant_type(config, grant_type, name='', **kwargs):
-    grant_type = DottedNameResolver().maybe_resolve(grant_type)
+    grant_type = config.maybe_dotted(grant_type)
 
     def register():
         config.registry.oauth.grant_types[name] = grant_type(**kwargs)
@@ -106,7 +105,7 @@ def add_grant_type(config, grant_type, name='', **kwargs):
 
 
 def add_response_type(config, response_type, name='', **kwargs):
-    response_type = DottedNameResolver().maybe_resolve(response_type)
+    response_type = config.maybe_dotted(response_type)
 
     def register():
         config.registry.oauth.response_types[name] = response_type(**kwargs)
@@ -123,7 +122,7 @@ def add_response_type(config, response_type, name='', **kwargs):
 
 
 def add_token_type(config, token_type, name='', **kwargs):
-    token_type = DottedNameResolver().maybe_resolve(token_type)
+    token_type = config.maybe_dotted(token_type)
 
     def register():
         config.registry.oauth.tokens[name] = token_type(**kwargs)
