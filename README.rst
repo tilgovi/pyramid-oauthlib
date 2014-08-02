@@ -12,20 +12,31 @@ OAuth applications, provide smooth migration possibilites to legacy codebases
 using other authentication or authorization schemes, and configuration patterns
 for creating pluggable OAuth components for Pyramid.
 
-Initial functionality:
+Usage Overview
+--------------
 
-- Grant, Response, and Token Type registration
-- Composite endpoint with delegation to type
-- Introspectables
-- OAuthlib compatibility request properties
+Configuration::
 
-Missing:
+    def includeme(config):
+        """Integration with OAuthLib is as smooth as possible."""
+        from oauthlib.oauth2 import BearerToken, AuthorizationCodeGrant
 
-- Revocation
-- Documentation
+        # Validator callback functions are passed Pyramid request objects so
+        # you can access your request properties, database sessions, etc.
+        # The request object is extended with all the properties used in the
+        # OAuthLib docs and built in types.
+        validator = MyRequestValidator()
+        auth_code = AuthorizationCodeGrant(request_validator=validator)
+        token = BearerToken(request_validator=validator)
 
-Examples
---------
+        # Register the token types to use at token endpoints.
+        config.add_token_type(BearerToken())
+
+        # Register grant types to validate token requests.
+        config.add_grant_type(auth_code, 'authorization_code')
+
+        # Register response types to create grants.
+        config.add_response_type(auth_code, 'code')
 
 Token response::
 
@@ -98,6 +109,13 @@ Using OAuthLib types directly::
     def includeme(config):
         bearer_token = BearerToken(request_validator=MyRequestValidator())
         config.add_token_type(bearer_token, 'Bearer')
+
+
+Still Missing
+-------------
+
+- Revocation
+- Dotted name support for registrations
 
 
 .. _OAuthLib: https://github.com/idan/oauthlib
