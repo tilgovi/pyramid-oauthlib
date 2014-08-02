@@ -17,7 +17,6 @@ Initial functionality:
 Missing:
 
 - Revocation
-- Tests
 - Documentation
 
 Examples
