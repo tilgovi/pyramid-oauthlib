@@ -3,7 +3,7 @@ Pyramid OAuthLib
 
 .. image:: https://travis-ci.org/tilgovi/pyramid-oauthlib.svg?branch=master
     :target: https://travis-ci.org/tilgovi/pyramid-oauthlib
-.. image:: https://coveralls.io/repos/tilgovi/pyramid-oauthlib/badge.png
+.. image:: https://coveralls.io/repos/tilgovi/pyramid-oauthlib/badge.svg
     :target: https://coveralls.io/r/tilgovi/pyramid-oauthlib
 
 Pyramid OAuthLib is a library to integrate the excellent `OAuthLib`_ library
