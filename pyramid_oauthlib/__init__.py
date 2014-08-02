@@ -101,54 +101,57 @@ class Server(
 
 
 def add_grant_type(config, grant_type, name='', **kwargs):
-    grant_type = config.maybe_dotted(grant_type)
+    grant_type = config.maybe_dotted(grant_type)(**kwargs)
 
     def register():
-        config.registry.oauth.grant_types[name] = grant_type(**kwargs)
-
-    config.action(('oauth grant type', name), register, order=1)
+        config.registry.oauth.grant_types[name] = grant_type
 
     intr = config.introspectable(
         category_name='oauth handlers',
         discriminator=('grant', name),
         title=name or '<default>',
-        type_name='grant'
+        type_name='grant',
     )
     intr['value'] = grant_type
 
+    config.action(('oauth grant type', name), register,
+                  introspectables=(intr,), order=1)
+
 
 def add_response_type(config, response_type, name='', **kwargs):
-    response_type = config.maybe_dotted(response_type)
+    response_type = config.maybe_dotted(response_type)(**kwargs)
 
     def register():
-        config.registry.oauth.response_types[name] = response_type(**kwargs)
-
-    config.action(('oauth response type', name), register, order=1)
+        config.registry.oauth.response_types[name] = response_type
 
     intr = config.introspectable(
         category_name='oauth handlers',
         discriminator=('response', name),
         title=name or '<default>',
-        type_name='response'
+        type_name='response',
     )
     intr['value'] = response_type
 
+    config.action(('oauth response type', name), register,
+                  introspectables=(intr,), order=1)
+
 
 def add_token_type(config, token_type, name='', **kwargs):
-    token_type = config.maybe_dotted(token_type)
+    token_type = config.maybe_dotted(token_type)(**kwargs)
 
     def register():
-        config.registry.oauth.tokens[name] = token_type(**kwargs)
-
-    config.action(('oauth token type', name), register, order=1)
+        config.registry.oauth.tokens[name] = token_type
 
     intr = config.introspectable(
         category_name='oauth handlers',
         discriminator=('token', name),
         title=name or '<default>',
-        type_name='token'
+        type_name='token',
     )
     intr['value'] = token_type
+
+    config.action(('oauth token type', name), register,
+                  introspectables=(intr,), order=1)
 
 
 def duplicate_params(request):  # pragma: no cover
@@ -174,14 +177,15 @@ def register(config, server):
 def includeme(config):
     server = Server()
     intr = config.introspectable(
-        category_name='oauth server',
+        category_name='oauth servers',
         discriminator='server',
-        title='oauth server',
-        type_name=None,
+        title='<default>',
+        type_name='server',
     )
     intr['value'] = server
 
-    config.action('oauth server', register, args=(config, server))
+    config.action('oauth server', register,
+                  introspectables=(intr,), args=(config, server))
 
     config.add_directive('add_grant_type', add_grant_type)
     config.add_directive('add_response_type', add_response_type)
