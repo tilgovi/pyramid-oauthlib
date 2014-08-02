@@ -7,12 +7,10 @@ matrix:
       env: TOX_ENV=py34
     - python: "2.7"
       env: TOX_ENV=py27
-    - python: "2.7"
-      env: TOX_ENV=cover
 install:
-  - if [ "x$TOX_ENV" = 'xcover' ]; then pip install coveralls --use-mirrors; fi
+  - pip install coveralls
   - pip install tox
 script:
   - tox -e $TOX_ENV
 after_success:
-  - if [ "x$TOX_ENV" = 'xcover' ]; then coveralls --use-mirrors; fi
+  coveralls
