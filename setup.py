@@ -10,7 +10,7 @@ class PyTest(TestCommand):
 
     def initialize_options(self):
         TestCommand.initialize_options(self)
-        self.tox_args = "-- --cov=pyramid_oauthlib"
+        self.tox_args = None
 
     def finalize_options(self):
         TestCommand.finalize_options(self)
