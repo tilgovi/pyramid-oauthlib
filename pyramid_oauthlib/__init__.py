@@ -34,14 +34,15 @@ class Server(
         # For grants and responses these are string keys.
         self._default_grant_type = ''
         self._default_response_type = ''
-
-        # For tokens, the type is an instance but `_default_token` is a key.
-        self._default_token_type = None
         self._default_token = ''
 
         self._grant_types = {}
         self._response_types = {}
         self._tokens = {}
+
+    @property
+    def default_token_type(self):
+        return self.tokens.get('')
 
     @base.catch_errors_and_unavailability
     def create_authorization_response(self, request,
