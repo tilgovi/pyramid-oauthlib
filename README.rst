@@ -29,14 +29,19 @@ Configuration::
         auth_code = AuthorizationCodeGrant(request_validator=validator)
         token = BearerToken(request_validator=validator)
 
-        # Register the token types to use at token endpoints.
-        config.add_token_type(BearerToken())
+        # Register response types to create grants.
+        config.add_response_type(auth_code, 'code')
 
         # Register grant types to validate token requests.
         config.add_grant_type(auth_code, 'authorization_code')
 
-        # Register response types to create grants.
-        config.add_response_type(auth_code, 'code')
+        # Register the token types to use at token endpoints.
+        # The second parameter to all registrations may be left out to set it
+        # as default to use when no corresponding request parameter specifies
+        # the grant, response or token type. Be aware that the built in types
+        # will fail if a matching request parameter is missing, though.
+        config.add_token_type(BearerToken())
+
 
 Token response::
 
@@ -90,26 +95,6 @@ Custom grant type::
 
     def includeme(config):
         config.add_grant_type(SessionGrant(), 'assertion')
-
-Using OAuthLib types directly::
-
-    from oauthlib.oauth2 import BearerToken, RequestValidator
-
-    class MyRequestValidator(RequestValidator):
-        """Omitted for brevity.
-
-        Unlike regular OAuthLib endpoints, the endpoint created by
-        Pyramid OAuthLib passes :class:`pyramid.request.Request` objects
-        rather than OAuthLib request objects. However, including the
-        Pyramid OAuthLib package in your Pyramid project will cause the
-        request to contain new properties, such as `request.state` that
-        hold OAuth parameters for interoperability with OAuthLib code.
-        """
-
-    def includeme(config):
-        bearer_token = BearerToken(request_validator=MyRequestValidator())
-        config.add_token_type(bearer_token, 'Bearer')
-
 
 Still Missing
 -------------
