@@ -33,6 +33,7 @@ class Server(
         base.BaseEndpoint.__init__(self)
         self._default_grant_type = ''
         self._default_response_type = ''
+        self._default_token_type = ''
         self._default_token = ''
 
         self._grant_types = {}
