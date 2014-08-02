@@ -128,24 +128,20 @@ def add_token_type(config, token_type, name=''):
     intr['value'] = token_type
 
 
-def duplicate_params(request):
+def duplicate_params(request):  # pragma: no cover
     keys = request.params.keys()
     return [k for k in keys if keys.count(k) > 1]
 
 
-def oauth_param(config, name):
+def oauth_param(config, name):  # pragma: no cover
     def getter(request):
         return request.params.get(name)
     config.add_request_method(getter, str(name), reify=True)
 
 
-def oauth_response(result):
+def oauth_response(result):  # pragma: no cover
     headers, body, status = result
     return Response(body=body, status=status, headers=headers)
-
-
-def oauth_server(request):
-    return request.registry.oauth
 
 
 def register(config, server):
