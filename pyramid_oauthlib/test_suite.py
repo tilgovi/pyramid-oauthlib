@@ -44,6 +44,11 @@ def test_grant_types(config):
     assert isinstance(server.grant_types[''], MockGrant)
     assert isinstance(server.grant_types['implicit'], ImplicitGrant)
 
+    with pytest.raises(AttributeError):
+        request = testing.DummyRequest()
+        request.grant_type = None
+        server.create_token_response(request)
+
     with patch.object(Server, 'default_token_type') as token:
         request = testing.DummyRequest()
         request.grant_type = None
@@ -71,6 +76,11 @@ def test_response_types(config):
     assert default is server.response_types['']
     assert isinstance(server.response_types[''], MockResponse)
     assert isinstance(server.response_types['token'], ImplicitGrant)
+
+    with pytest.raises(AttributeError):
+        request = testing.DummyRequest()
+        request.response_type = None
+        server.create_authorization_response(request)
 
     with patch.object(Server, 'default_token_type') as token:
         request = testing.DummyRequest()

@@ -30,9 +30,13 @@ class Server(
 ):
     def __init__(self):
         base.BaseEndpoint.__init__(self)
+
+        # For grants and responses these are string keys.
         self._default_grant_type = ''
         self._default_response_type = ''
-        self._default_token_type = ''
+
+        # For tokens, the type is an instance but `_default_token` is a key.
+        self._default_token_type = None
         self._default_token = ''
 
         self._grant_types = {}
@@ -49,7 +53,11 @@ class Server(
             request.response_type,
             self.default_response_type_handler,
         )
+
         token = self.default_token_type
+        if token is None:
+            raise AttributeError('No default token type registered.')
+
         return handler.create_authorization_response(request, token)
 
     @base.catch_errors_and_unavailability
@@ -64,7 +72,11 @@ class Server(
             request.grant_type,
             self.default_grant_type_handler,
         )
+
         token = self.default_token_type
+        if token is None:
+            raise AttributeError('No default token type registered.')
+
         return handler.create_token_response(request, token)
 
     @base.catch_errors_and_unavailability
