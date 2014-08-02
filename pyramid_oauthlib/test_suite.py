@@ -1,5 +1,3 @@
-import unittest
-
 from mock import MagicMock, patch
 from pyramid import testing
 from pyramid.interfaces import IRequestExtensions
@@ -98,7 +96,6 @@ def test_response_types(config):
 
 def test_token_types(config):
     from oauthlib.oauth2 import BearerToken, RequestValidator
-    from pyramid_oauthlib import Server
     server = config.registry.oauth
     validator = RequestValidator()
 
