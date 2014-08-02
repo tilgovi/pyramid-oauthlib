@@ -4,6 +4,7 @@ import logging
 
 from oauthlib import oauth2
 from oauthlib.oauth2.rfc6749.endpoints import base
+from pyramid.path import DottedNameResolver
 from pyramid.response import Response
 
 log = logging.getLogger(__name__)
@@ -86,9 +87,12 @@ class Server(
         return handler.validate_request(request)
 
 
-def add_grant_type(config, grant_type, name=''):
+def add_grant_type(config, grant_type, name='', **kwargs):
+    grant_type = DottedNameResolver().maybe_resolve(grant_type)
+
     def register():
-        config.registry.oauth.grant_types[name] = grant_type
+        config.registry.oauth.grant_types[name] = grant_type(**kwargs)
+
     config.action(('oauth grant type', name), register, order=1)
 
     intr = config.introspectable(
@@ -100,9 +104,12 @@ def add_grant_type(config, grant_type, name=''):
     intr['value'] = grant_type
 
 
-def add_response_type(config, response_type, name=''):
+def add_response_type(config, response_type, name='', **kwargs):
+    response_type = DottedNameResolver().maybe_resolve(response_type)
+
     def register():
-        config.registry.oauth.response_types[name] = response_type
+        config.registry.oauth.response_types[name] = response_type(**kwargs)
+
     config.action(('oauth response type', name), register, order=1)
 
     intr = config.introspectable(
@@ -114,9 +121,12 @@ def add_response_type(config, response_type, name=''):
     intr['value'] = response_type
 
 
-def add_token_type(config, token_type, name=''):
+def add_token_type(config, token_type, name='', **kwargs):
+    token_type = DottedNameResolver().maybe_resolve(token_type)
+
     def register():
-        config.registry.oauth.tokens[name] = token_type
+        config.registry.oauth.tokens[name] = token_type(**kwargs)
+
     config.action(('oauth token type', name), register, order=1)
 
     intr = config.introspectable(

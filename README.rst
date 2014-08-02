@@ -26,21 +26,24 @@ Configuration::
         # The request object is populated with accessors for the properties
         # referred to in the OAuthLib docs and used by its built in types.
         validator = MyRequestValidator()
-        auth_code = AuthorizationCodeGrant(request_validator=validator)
-        token = BearerToken(request_validator=validator)
 
         # Register response types to create grants.
-        config.add_response_type(auth_code, 'code')
+        config.add_response_type('oauthlib.oauth2.AuthorizationCodeGrant',
+                                 name='code',
+                                 request_validator=validator)
 
         # Register grant types to validate token requests.
-        config.add_grant_type(auth_code, 'authorization_code')
+        config.add_grant_type('oauthlib.oauth2.AuthorizationCodeGrant',
+                              name='authorization_code',
+                              request_validator=validator)
 
         # Register the token types to use at token endpoints.
         # The second parameter to all registrations may be left out to set it
         # as default to use when no corresponding request parameter specifies
         # the grant, response or token type. Be aware that the built in types
         # will fail if a matching request parameter is missing, though.
-        config.add_token_type(BearerToken())
+        config.add_token_type('oauthlib.oauth2.BearerToken'
+                              request_validator=validator)
 
 
 Token response::
@@ -94,13 +97,12 @@ Custom grant type::
 
 
     def includeme(config):
-        config.add_grant_type(SessionGrant(), 'assertion')
+        config.add_grant_type(SessionGrant, 'assertion')
 
 Still Missing
 -------------
 
 - Revocation
-- Dotted name support for registrations
 
 
 .. _OAuthLib: https://github.com/idan/oauthlib
