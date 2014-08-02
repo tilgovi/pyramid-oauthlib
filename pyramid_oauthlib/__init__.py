@@ -49,8 +49,7 @@ class Server(
             self.default_response_type_handler,
         )
         token = self.default_token_type
-        return oauth_response(
-            handler.create_authorization_response(request, token))
+        return handler.create_authorization_response(request, token)
 
     @base.catch_errors_and_unavailability
     def create_revocation_response(self, request):
@@ -64,9 +63,8 @@ class Server(
             request.grant_type,
             self.default_grant_type_handler,
         )
-        token = self.default_token_type_handler
-        return oauth_response(
-            handler.create_token_response(request, token))
+        token = self.default_token_type
+        return handler.create_token_response(request, token)
 
     @base.catch_errors_and_unavailability
     def validate_authorization_request(self, request):
@@ -146,6 +144,10 @@ def oauth_response(result):
     return Response(body=body, status=status, headers=headers)
 
 
+def oauth_server(request):
+    return request.registry.oauth
+
+
 def register(config, server):
     config.registry.oauth = server
 
@@ -168,7 +170,13 @@ def includeme(config):
 
     config.add_request_method(
         lambda request, scopes=None, credentials=None:
-        server.create_authorization_response(request, scopes, credentials),
+        oauth_response(
+            server.create_authorization_response(
+                request,
+                scopes=scopes,
+                credentials=credentials
+            )
+        ),
         str('create_authorization_response'))
 
     config.add_request_method(
@@ -178,7 +186,9 @@ def includeme(config):
 
     config.add_request_method(
         lambda request, credentials=None:
-        server.create_token_response(request, credentials),
+        oauth_response(
+            server.create_token_response(request, credentials=credentials)
+        ),
         str('create_token_response'))
 
     config.add_request_method(
