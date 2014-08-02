@@ -1,6 +1,9 @@
 Pyramid OAuthLib
 ================
 
+.. image:: https://travis-ci.org/tilgovi/pyramid-oauthlib.svg?branch=master
+    :target: https://travis-ci.org/tilgovi/pyramid-oauthlib
+
 Pyramid OAuthLib is a library to integrate the excellent `OAuthLib`_ library
 easily into `Pyramid`_ applications. It is designed to ease development of
 OAuth applications, provide smooth migration possibilites to legacy codebases
