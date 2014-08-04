@@ -1,7 +1,17 @@
-Next release
-------------
+0.1.1 (2014-08-04)
+==================
 
-0.0
----
+Features
+--------
 
--  Initial version
+- Request methods for easy integration of OAuth flows.
+- Request parameters to integrate with OAuthLib modules.
+- Registration of new grant, response, and token types, (optionally)
+  using dotted name resolution.
+- Introspectable configuration.
+- Full unit test coverage
+
+Missing in this release
+-----------------------
+
+- Support for revocation.
