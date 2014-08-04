@@ -47,11 +47,9 @@ setup(
     url='https://github.com/tilgovi/pyramid_oauthlib',
     keywords='web pyramid pylons oauth authentication',
     cmdclass={'test': PyTest},
-    exclude_package_data={'': ['.gitignore']},
     include_package_data=True,
     install_requires=['pyramid', 'oauthlib'],
     packages=find_packages(),
-    setup_requires=['setuptools_git'],
     tests_require=['tox'],
     zip_safe=False,
 )
