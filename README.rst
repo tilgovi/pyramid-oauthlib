@@ -102,6 +102,13 @@ Custom grant type::
 
     def includeme(config):
         config.add_grant_type(SessionGrant, 'assertion')
+        
+License
+-------
+
+Pyramid OAuthLib is released under the `2-Clause BSD License`_, sometimes
+referred to as the "Simplified BSD License" or the "FreeBSD License". More
+license information can be found in the included `<LICENSE.txt>`_ file.
 
 .. _OAuthLib: https://github.com/idan/oauthlib
 .. _Pyramid: http://www.pylonsproject.org/
