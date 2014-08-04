@@ -103,11 +103,5 @@ Custom grant type::
     def includeme(config):
         config.add_grant_type(SessionGrant, 'assertion')
 
-Still Missing
--------------
-
-- Revocation
-
-
 .. _OAuthLib: https://github.com/idan/oauthlib
 .. _Pyramid: http://www.pylonsproject.org/
