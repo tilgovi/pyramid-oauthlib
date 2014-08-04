@@ -53,5 +53,5 @@ setup(
     packages=find_packages(),
     setup_requires=['setuptools_git'],
     tests_require=['tox'],
-    zip_safe=True,
+    zip_safe=False,
 )
