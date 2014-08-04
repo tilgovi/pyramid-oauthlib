@@ -12,6 +12,10 @@ OAuth applications, provide smooth migration possibilites to legacy codebases
 using other authentication or authorization schemes, and configuration patterns
 for creating pluggable OAuth components for Pyramid.
 
+**NOTICE**: Pyramid OAuthLib is not feature complete! It is missing the hooks
+for token revocation. While this shouldn't be hard to add, it wasn't a priority
+to get the initial version released.
+
 Usage Overview
 --------------
 
