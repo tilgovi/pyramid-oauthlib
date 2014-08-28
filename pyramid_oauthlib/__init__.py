@@ -10,14 +10,20 @@ log = logging.getLogger(__name__)
 
 OAUTH_PARAMS = (
     'access_token',
+    'client',
     'client_id',
     'client_secret',
     'code',
     'grant_type',
-    'response_type',
+    'password',
     'redirect_uri',
+    'refresh_token',
+    'response_type',
     'scope',
     'state',
+    'token',
+    'user',
+    'username',
 )
 
 
@@ -63,7 +69,15 @@ class Server(
 
     @base.catch_errors_and_unavailability
     def create_revocation_response(self, request):
-        pass
+        handler = self.response_types.get(
+            request.response_type,
+            self.default_response_type_handler,
+        )
+        return handler.create_revocation_response(
+            request.url,
+            request.method,
+            request.body,
+            request.headers)
 
     @base.catch_errors_and_unavailability
     def create_token_response(self, request, credentials=None):
@@ -204,7 +218,9 @@ def includeme(config):
 
     config.add_request_method(
         lambda request:
-        server.create_revocation_response(request),
+        oauth_response(
+            server.create_revocation_response(request)
+        ),
         str('create_revocation_response'))
 
     config.add_request_method(
