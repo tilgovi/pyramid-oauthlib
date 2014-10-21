@@ -5,6 +5,7 @@ import logging
 from oauthlib import oauth2
 from oauthlib.oauth2.rfc6749.endpoints import base
 from pyramid.response import Response
+from pyramid.compat import bytes_
 
 log = logging.getLogger(__name__)
 
@@ -167,7 +168,11 @@ def oauth_param(config, name):  # pragma: no cover
 
 def oauth_response(result):  # pragma: no cover
     headers, body, status = result
-    return Response(body=body, status=status, headers=headers)
+    return Response(body=body, status=status, headers={
+        bytes_(name, 'utf-8'): bytes_(value, 'utf-8')
+        for name, value
+        in headers.iteritems()
+    })
 
 
 def register(config, server):
