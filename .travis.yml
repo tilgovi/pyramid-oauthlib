@@ -1,17 +1,16 @@
 language: python
-matrix:
-  include:
-    - python: "pypy"
-      env: TOX_ENV=pypy
-    - python: "3.4"
-      env: TOX_ENV=py34
-    - python: "2.7"
-      env: TOX_ENV=py27
-    - env: TOX_ENV=cover
+env:
+  - TOXENV=py27
+  - TOXENV=py32
+  - TOXENV=py33
+  - TOXENV=py34
+  - TOXENV=pypy
+  - TOXENV=pypy3
+  - TOXENV=coverage
 install:
-  - if [ x$TOX_ENV == "xcover" ]; then pip install coveralls; fi
+  - if [ x$TOXENV == "xcoverage" ]; then pip install coveralls; fi
   - pip install tox
 script:
-  - tox -e $TOX_ENV
+  - tox
 after_success:
-  - if [ x$TOX_ENV == "xcover" ]; then coveralls; fi
+  - if [ x$TOX_ENV == "xcoverage" ]; then coveralls; fi

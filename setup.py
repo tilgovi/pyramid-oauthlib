@@ -6,21 +6,24 @@ import sys
 
 
 class PyTest(TestCommand):
-    user_options = [('tox-args=', 'a', "Arguments to pass to tox")]
+    user_options = [
+        ('cov', None, "measure coverage")
+    ]
 
     def initialize_options(self):
         TestCommand.initialize_options(self)
-        self.tox_args = None
+        self.cov = None
 
     def finalize_options(self):
         TestCommand.finalize_options(self)
-        self.test_args = []
+        self.test_args = ['pyramid_oauthlib']
+        if self.cov:
+            self.test_args += ['--cov', 'pyramid_oauthlib']
         self.test_suite = True
 
     def run_tests(self):
-        import tox
-        import shlex
-        errno = tox.cmdline(args=shlex.split(self.tox_args))
+        import pytest
+        errno = pytest.main(self.test_args)
         sys.exit(errno)
 
 here = os.path.abspath(os.path.dirname(__file__))
@@ -52,6 +55,6 @@ setup(
     install_requires=['pyramid', 'oauthlib'],
     packages=find_packages(),
     setup_requires=['setuptools_git'],
-    tests_require=['tox'],
+    tests_require=['mock', 'pytest', 'pytest-cov'],
     zip_safe=False,
 )
