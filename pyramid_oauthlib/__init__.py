@@ -155,17 +155,17 @@ def add_token_type(config, token_type, name='', **kwargs):
                   introspectables=(intr,), order=1)
 
 
-def add_oauth_param(config, name):  # pragma: no cover
+def add_oauth_param(config, name):
     def getter(request):
         return request.params.get(name)
     config.add_request_method(getter, str(name), reify=True)
 
 
-def duplicate_params(request):  # pragma: no cover
+def duplicate_params(request):
     keys = request.params.keys()
     return [k for k in keys if keys.count(k) > 1]
 
-def oauth_response(result):  # pragma: no cover
+def oauth_response(result):
     headers, body, status = result
     return Response(body=body, status=status, headers={
         bytes_(name, 'utf-8'): bytes_(value, 'utf-8')
