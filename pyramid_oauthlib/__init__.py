@@ -155,16 +155,15 @@ def add_token_type(config, token_type, name='', **kwargs):
                   introspectables=(intr,), order=1)
 
 
-def duplicate_params(request):  # pragma: no cover
-    keys = request.params.keys()
-    return [k for k in keys if keys.count(k) > 1]
-
-
-def oauth_param(config, name):  # pragma: no cover
+def add_oauth_param(config, name):  # pragma: no cover
     def getter(request):
         return request.params.get(name)
     config.add_request_method(getter, str(name), reify=True)
 
+
+def duplicate_params(request):  # pragma: no cover
+    keys = request.params.keys()
+    return [k for k in keys if keys.count(k) > 1]
 
 def oauth_response(result):  # pragma: no cover
     headers, body, status = result
@@ -195,6 +194,7 @@ def includeme(config):
     config.add_directive('add_grant_type', add_grant_type)
     config.add_directive('add_response_type', add_response_type)
     config.add_directive('add_token_type', add_token_type)
+    config.add_directive('add_oauth_param', add_oauth_param)
 
     config.add_request_method(
         lambda request, scopes=None, credentials=None:
@@ -232,4 +232,4 @@ def includeme(config):
     config.set_request_property(duplicate_params, str('duplicate_params'))
 
     for name in OAUTH_PARAMS:
-        oauth_param(config, str(name))
+        config.add_oauth_param(str(name))
