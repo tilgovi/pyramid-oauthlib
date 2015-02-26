@@ -191,9 +191,9 @@ def includeme(config):
     config.action('oauth server', register,
                   introspectables=(intr,), args=(config, server))
 
-    config.add_directive('add_grant_type', add_grant_type)
-    config.add_directive('add_response_type', add_response_type)
-    config.add_directive('add_token_type', add_token_type)
+    config.add_directive('add_grant_type', add_grant_type, True)
+    config.add_directive('add_response_type', add_response_type, True)
+    config.add_directive('add_token_type', add_token_type, True)
     config.add_directive('add_oauth_param', add_oauth_param)
 
     config.add_request_method(
