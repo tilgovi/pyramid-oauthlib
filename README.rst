@@ -46,7 +46,7 @@ Configuration::
         # as default to use when no corresponding request parameter specifies
         # the grant, response or token type. Be aware that the built in types
         # will fail if a matching request parameter is missing, though.
-        config.add_token_type('oauthlib.oauth2.BearerToken'
+        config.add_token_type('oauthlib.oauth2.BearerToken',
                               request_validator=validator)
 
 
