@@ -5,7 +5,7 @@ import logging
 from oauthlib import oauth2
 from oauthlib.oauth2.rfc6749.endpoints import base
 from pyramid.response import Response
-from pyramid.compat import bytes_
+from pyramid.compat import native_
 
 log = logging.getLogger(__name__)
 
@@ -162,15 +162,15 @@ def add_oauth_param(config, name):
 
 
 def duplicate_params(request):
-    keys = request.params.keys()
+    keys = list(request.params)
     return [k for k in keys if keys.count(k) > 1]
 
 def oauth_response(result):
     headers, body, status = result
     return Response(body=body, status=status, headers={
-        bytes_(name, 'utf-8'): bytes_(value, 'utf-8')
+        native_(name, encoding='latin-1'): native_(value, encoding='latin-1')
         for name, value
-        in headers.iteritems()
+        in headers.items()
     })
 
 
