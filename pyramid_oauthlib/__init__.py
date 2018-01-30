@@ -11,14 +11,18 @@ log = logging.getLogger(__name__)
 
 OAUTH_PARAMS = (
     'access_token',
+    'client',
     'client_id',
     'client_secret',
     'code',
     'grant_type',
+    'password',
+    'refresh_token',
     'response_type',
     'redirect_uri',
     'scope',
     'state',
+    'username',
 )
 
 
