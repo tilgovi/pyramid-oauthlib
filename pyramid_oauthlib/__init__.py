@@ -11,7 +11,6 @@ log = logging.getLogger(__name__)
 
 OAUTH_PARAMS = (
     'access_token',
-    'client',
     'client_id',
     'client_secret',
     'code',
