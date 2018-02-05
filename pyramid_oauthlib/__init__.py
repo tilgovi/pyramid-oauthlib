@@ -15,10 +15,13 @@ OAUTH_PARAMS = (
     'client_secret',
     'code',
     'grant_type',
+    'password',
+    'refresh_token',
     'response_type',
     'redirect_uri',
     'scope',
     'state',
+    'username',
 )
 
 
