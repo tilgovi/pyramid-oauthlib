@@ -102,7 +102,7 @@ Custom grant type::
 
     def includeme(config):
         config.add_grant_type(SessionGrant, 'assertion')
-        
+
 License
 -------
 
