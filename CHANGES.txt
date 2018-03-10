@@ -1,6 +1,12 @@
 Next Release
 ============
 
+Features
+--------
+
+- Python 3 support.
+- Support for password credential flow parameters.
+
 
 0.2.0 (2014-11-21)
 ==================
