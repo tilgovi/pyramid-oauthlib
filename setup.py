@@ -34,7 +34,7 @@ with open(os.path.join(here, 'CHANGES.txt')) as f:
 
 setup(
     name='pyramid_oauthlib',
-    version='0.3.0-dev',
+    version='0.3.0',
     description='Pyramid OAuthLib integration',
     long_description=README + '\n\n' + CHANGES,
     classifiers=[
