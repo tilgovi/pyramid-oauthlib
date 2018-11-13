@@ -232,7 +232,11 @@ def includeme(config):
         server.verify_request(request, scopes=scopes),
         str('verify_request'))
 
-    config.set_request_property(duplicate_params, str('duplicate_params'))
+    config.add_request_method(
+        lambda request: duplicate_params,
+        str("duplicate_params"),
+        property=True
+    )
 
     for name in OAUTH_PARAMS:
         config.add_oauth_param(str(name))
