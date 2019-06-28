@@ -52,7 +52,7 @@ setup(
     cmdclass={'test': PyTest},
     exclude_package_data={'': ['.gitignore']},
     include_package_data=True,
-    install_requires=['pyramid>=1.4.0', 'oauthlib'],
+    install_requires=['pyramid>=1.4.0', 'oauthlib>=2,<3'],
     packages=find_packages(),
     setup_requires=['setuptools_git'],
     tests_require=['mock', 'pytest', 'pytest-cov'],
