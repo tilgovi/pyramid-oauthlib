@@ -1,3 +1,12 @@
+Next Release
+============
+
+Bug Fixes
+---------
+
+- Fix `duplicate_params` request property.
+- Fix version specifier to indicate that OAuthLib 3 is not yet supported.
+
 0.4.0 (2018-11-16)
 ==================
 
