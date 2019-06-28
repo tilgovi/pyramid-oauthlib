@@ -168,6 +168,7 @@ def duplicate_params(request):
     keys = list(request.params)
     return [k for k in keys if keys.count(k) > 1]
 
+
 def oauth_response(result):
     headers, body, status = result
     return Response(body=body, status=status, headers={
@@ -233,7 +234,7 @@ def includeme(config):
         str('verify_request'))
 
     config.add_request_method(
-        lambda request: duplicate_params,
+        lambda request: duplicate_params(request),
         str("duplicate_params"),
         property=True
     )
