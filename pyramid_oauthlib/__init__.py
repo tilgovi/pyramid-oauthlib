@@ -3,7 +3,6 @@ from __future__ import absolute_import, unicode_literals
 import logging
 
 from oauthlib import oauth2
-from oauthlib.oauth2.rfc6749.clients import Client
 from oauthlib.oauth2.rfc6749.endpoints import base
 from pyramid.response import Response
 from pyramid.compat import native_
@@ -19,12 +18,14 @@ OAUTH_PARAMS = (
     'password',
     'refresh_token',
     'response_type',
-    'response_mode',
     'redirect_uri',
     'scope',
     'state',
     'user'
     'username',
+
+    # OpenID Connect
+    'response_mode'
 )
 
 
@@ -55,7 +56,6 @@ class Server(
     def create_authorization_response(self, request,
                                       scopes=None, credentials=None):
         request.scopes = scopes
-        request.client = Client(client_id=request.client_id)
         for k, v in (credentials or {}).items():
             setattr(request, k, v)
         handler = self.response_types.get(
@@ -76,7 +76,6 @@ class Server(
     @base.catch_errors_and_unavailability
     def create_token_response(self, request, credentials=None):
         request.scopes = None
-        request.client = Client(client_id=request.client_id)
         request.extra_credentials = credentials
         handler = self.grant_types.get(
             request.grant_type,
@@ -92,7 +91,6 @@ class Server(
     @base.catch_errors_and_unavailability
     def validate_authorization_request(self, request):
         request.scopes = None
-        request.client = Client(client_id=request.client_id)
         handler = self.response_types.get(
             request.response_type,
             self.default_response_type_handler,
