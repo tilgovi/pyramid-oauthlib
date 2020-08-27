@@ -25,7 +25,16 @@ OAUTH_PARAMS = (
     'username',
 
     # OpenID Connect
-    'response_mode'
+    'response_mode',
+    'nonce',
+    'display',
+    'prompt',
+    'claims',
+    'max_age',
+    'ui_locales',
+    'id_token_hint',
+    'login_hint',
+    'acr_values'
 )
 
 
