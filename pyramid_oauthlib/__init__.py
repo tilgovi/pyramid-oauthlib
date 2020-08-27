@@ -26,7 +26,7 @@ OAUTH_PARAMS = (
     'scopes',
     'state',
     'token',
-    'user'
+    'user',
     'token_type_hint',
     'username',
 
