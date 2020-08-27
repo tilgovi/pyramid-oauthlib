@@ -11,17 +11,36 @@ log = logging.getLogger(__name__)
 
 OAUTH_PARAMS = (
     'access_token',
+    'client',
     'client_id',
     'client_secret',
     'code',
+    'extra_credentials',
     'grant_type',
     'password',
     'refresh_token',
+    'request_token',
     'response_type',
     'redirect_uri',
     'scope',
+    'scopes',
     'state',
+    'token',
+    'user',
+    'token_type_hint',
     'username',
+
+    # OpenID Connect
+    'response_mode',
+    'nonce',
+    'display',
+    'prompt',
+    'claims',
+    'max_age',
+    'ui_locales',
+    'id_token_hint',
+    'login_hint',
+    'acr_values'
 )
 
 
