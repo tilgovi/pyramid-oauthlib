@@ -1,11 +1,9 @@
 # -*- coding: utf-8 -*-
-from __future__ import absolute_import, unicode_literals
 import logging
 
 from oauthlib import oauth2
 from oauthlib.oauth2.rfc6749.endpoints import base
 from pyramid.response import Response
-from pyramid.compat import native_
 
 log = logging.getLogger(__name__)
 
@@ -15,6 +13,7 @@ OAUTH_PARAMS = (
     'client_id',
     'client_secret',
     'code',
+    'code_challenge',
     'extra_credentials',
     'grant_type',
     'password',
@@ -42,6 +41,15 @@ OAUTH_PARAMS = (
     'login_hint',
     'acr_values'
 )
+
+
+def native_(s, encoding='latin-1', errors='strict'):
+    """If ``s`` is an instance of ``text_type``, return
+    ``s``, otherwise return ``str(s, encoding, errors)``"""
+    if isinstance(s, str):
+        return s
+    return str(s, encoding, errors)
+
 
 
 class Server(
