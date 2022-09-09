@@ -14,7 +14,7 @@ class MockResponse(MagicMock):
 
 class MockToken(MagicMock):
     def estimate_type(self, request):
-        return 6  # Since the sort order has changed and we want to be first
+        return 6
 
 
 @pytest.fixture(scope='function')
