@@ -14,7 +14,7 @@ class MockResponse(MagicMock):
 
 class MockToken(MagicMock):
     def estimate_type(self, request):
-        return 5
+        return 6
 
 
 @pytest.fixture(scope='function')

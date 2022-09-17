@@ -34,12 +34,11 @@ with open(os.path.join(here, 'CHANGES.txt')) as f:
 
 setup(
     name='pyramid_oauthlib',
-    version='0.4.2',
+    version='0.4.3-dev',
     description='Pyramid OAuthLib integration',
     long_description=README + '\n\n' + CHANGES,
     classifiers=[
         "Programming Language :: Python",
-        "Programming Language :: Python :: 2",
         "Programming Language :: Python :: 3",
         "Framework :: Pyramid",
         "Topic :: Internet :: WWW/HTTP",
@@ -52,7 +51,7 @@ setup(
     cmdclass={'test': PyTest},
     exclude_package_data={'': ['.gitignore']},
     include_package_data=True,
-    install_requires=['pyramid>=1.4.0', 'oauthlib>=2,<3'],
+    install_requires=['pyramid>=1.4.0', 'oauthlib>=3'],
     packages=find_packages(),
     setup_requires=['setuptools_git'],
     tests_require=['mock', 'pytest', 'pytest-cov'],
